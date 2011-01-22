@@ -6,7 +6,7 @@ if [ "$#" -lt 1 ]; then
   echo "Usage: $0 php5.3.2 [more options for php configure]"
   exit;
 fi
-if [ !-d "$PREFIX" ]; then
+if [ ! -d "$PREFIX" ]; then
    mkdir $PREFIX
 fi
 
@@ -18,6 +18,11 @@ if [ "$?" -eq "0" ]; then
   make
   make install
 fi
-if [ !-d "$EXTENSION_DIR" ]; then
+if [ ! -d "$EXTENSION_DIR" ]; then
   mkdir -p $EXTENSION_DIR
+fi
+
+if [ ! -f "$PREFIX/etc/php.ini" ]; then
+  mkdir -p $PREFIX/etc
+  cp php.ini-production $PREFIX/etc/php.ini
 fi
